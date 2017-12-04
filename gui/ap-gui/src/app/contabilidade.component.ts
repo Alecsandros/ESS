@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
  
 import { Contabilidade } from './contabilidade';
 import { ContabilidadeService } from './contabilidade.service';
+import { RegistroProdutoComponent} from '/.registroproduto.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class ContabilidadeComponent implements OnInit {
 		for (let i in listaDeCompra){
 			var itemDeCompra = listaDeCompra[i];
 			var produto = itemDeCompra.produto;
+			var indice = ProcurarProduto(produto);
 			var preco = produto.Valor;
 			var quantidade = itemDeCompra.quantidade;
 			var desconto = pedido.Desconto;
@@ -35,16 +37,31 @@ export class ContabilidadeComponent implements OnInit {
 	diario(): void {
 		this.lucro = this.contabilidade.lucroDiario;
 		this.bruto = this.contabilidade.brutoDiario;
+		for(let i of ArrayProduto){
+			i.lucro = i.lucroDiario;
+			i.bruto = i.brutoDiario;
+			i.peso = i.pesoDiario;
+		}
   	}
 
   	semanal(): void {
 		this.lucro = this.contabilidade.lucroSemanal;
 		this.bruto = this.contabilidade.brutoSemanal;
+		for(let i of ArrayProduto){
+			i.lucro = i.lucroSemanal;
+			i.bruto = i.brutoSemanal;
+			i.peso = i.pesoSemanal;
+		}
   	}
 
   	mensal(): void {
 		this.lucro = this.contabilidade.lucroMensal;
 		this.bruto = this.contabilidade.brutoMensal;
+		for(let i of ArrayProduto){
+			i.lucro = i.lucroMensal;
+			i.bruto = i.brutoMensal;
+			i.peso = i.pesoMensal;
+		}
   	}
 
 	incrementarValor(lucro: decimal, bruto: decimal){ //V1
@@ -54,6 +71,19 @@ export class ContabilidadeComponent implements OnInit {
 		contabilidade.brutoDiario += bruto;
 		contabilidade.brutoSemanal += bruto;
 		contabilidade.brutoMensal += bruto;
+	}
+
+	incrementarValorProduto(lucro: decimal, bruto: decimal, peso: decimal){ //V1
+		var prod: RegistroProduto = this.contabilidade.ArrayProduto[indice];
+		prod.lucroDiario +=  lucro;
+		prod.lucroSemanal += lucro;
+		prod.lucroMensal += lucro;
+		prod.brutoDiario += bruto;
+		prod.brutoSemanal += bruto;
+		prod.brutoMensal += bruto;
+		prod.pesoDiario += peso;
+		prod.pesoSemanal += peso;
+		prod.pesoMensal += peso;
 	}
 
 	ngOnInit(): void {
