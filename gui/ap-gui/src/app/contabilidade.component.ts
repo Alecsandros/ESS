@@ -28,7 +28,7 @@ export class ContabilidadeComponent implements OnInit {
 			var desconto = pedido.Desconto;
 			var bruto = preco * quantidade;
 			var lucro = (bruto/100) * desconto;
-			incrementarValorProduto(lucro, bruto, quantidade, indice);
+			incrementarValorProduto(bruto, quantidade, indice);
 			incrementarValor(lucro, bruto);
 		}
 		this.contabilidadeService.atualizar(this.contabilidade);
@@ -73,11 +73,8 @@ export class ContabilidadeComponent implements OnInit {
 		contabilidade.brutoMensal += bruto;
 	}
 
-	incrementarValorProduto(lucro: decimal, bruto: decimal, peso: decimal){ //V1
+	incrementarValorProduto(bruto: decimal, peso: decimal){ //V1
 		var prod: RegistroProduto = this.contabilidade.ArrayProduto[indice];
-		prod.lucroDiario +=  lucro;
-		prod.lucroSemanal += lucro;
-		prod.lucroMensal += lucro;
 		prod.brutoDiario += bruto;
 		prod.brutoSemanal += bruto;
 		prod.brutoMensal += bruto;
