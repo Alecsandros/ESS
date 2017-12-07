@@ -14,7 +14,6 @@ import { RegistroProdutoComponent} from '/.registroproduto.component';
 export class ContabilidadeComponent implements OnInit {
 	constructor(private contabilidadeService: ContabilidadeService) {}
 	contabilidade: Contabilidade = new Contabilidade();
-	lucro: decimal = 0;
 	bruto: decimal = 0;
 
 	contabilidadePedido(pedido: Pedido){ //ver isto
@@ -22,65 +21,30 @@ export class ContabilidadeComponent implements OnInit {
 		for (let i in listaDeCompra){
 			var itemDeCompra = listaDeCompra[i];
 			var produto = itemDeCompra.produto;
-			var indice = ProcurarProduto(produto);
 			var preco = produto.Valor;
 			var quantidade = itemDeCompra.quantidade;
-			var desconto = pedido.Desconto;
 			var bruto = preco * quantidade;
-			var lucro = (bruto/100) * desconto;
-			incrementarValorProduto(bruto, quantidade, indice);
-			incrementarValor(lucro, bruto);
+			incrementarValor(bruto);
 		}
 		this.contabilidadeService.atualizar(this.contabilidade);
 	}
 	
 	diario(): void {
-		this.lucro = this.contabilidade.lucroDiario;
 		this.bruto = this.contabilidade.brutoDiario;
-		for(let i of ArrayProduto){
-			i.lucro = i.lucroDiario;
-			i.bruto = i.brutoDiario;
-			i.peso = i.pesoDiario;
-		}
   	}
 
   	semanal(): void {
-		this.lucro = this.contabilidade.lucroSemanal;
 		this.bruto = this.contabilidade.brutoSemanal;
-		for(let i of ArrayProduto){
-			i.lucro = i.lucroSemanal;
-			i.bruto = i.brutoSemanal;
-			i.peso = i.pesoSemanal;
-		}
   	}
 
   	mensal(): void {
-		this.lucro = this.contabilidade.lucroMensal;
 		this.bruto = this.contabilidade.brutoMensal;
-		for(let i of ArrayProduto){
-			i.lucro = i.lucroMensal;
-			i.bruto = i.brutoMensal;
-			i.peso = i.pesoMensal;
-		}
   	}
 
-	incrementarValor(lucro: decimal, bruto: decimal){ //V1
-		contabilidade.lucroDiario +=  lucro;
-		contabilidade.lucroSemanal += lucro;
-		contabilidade.lucroMensal += lucro;
+	incrementarValor(bruto: decimal){ //V1
 		contabilidade.brutoDiario += bruto;
 		contabilidade.brutoSemanal += bruto;
 		contabilidade.brutoMensal += bruto;
-	}
-
-	incrementarValorProduto(bruto: decimal, peso: decimal){ //V1
-		var prod: RegistroProduto = this.contabilidade.ArrayProduto[indice];
-		prod.brutoDiario += bruto;
-		prod.brutoSemanal += bruto;
-		prod.brutoMensal += bruto;
-		prod.pesoDiario += peso;
-		prod.pesoSemanal += peso;
-		prod.pesoMensal += peso;
 	}
 
 	ngOnInit(): void {
