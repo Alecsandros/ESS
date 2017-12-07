@@ -14,29 +14,29 @@ defineSupportCode(function ({ Given, When, Then }) {
         await $("a[name='Contabilidade']").click();
     })
 
-   Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
-        var bruto: number= (Number(preco)*Number(quant));
-        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"3", "nome":produto, "valor":preco},"quantidade":quant,"valor":bruto}]}, json: true};
+    Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
+        var valor: number= (Number(preco)*Number(quant));
+        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"1", "nome":produto, "valor":preco},"quantidade":quant,"valor":valor}]}, json: true};
         request(options);
         request.post("localhost:3000/pedidos");
     });
 
-   Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
-        var bruto: number= (Number(preco)*Number(quant));
-        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"3", "nome":produto, "valor":preco},"quantidade":quant,"valor":bruto}]}, json: true};
+    Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
+        var valor: number= (Number(preco)*Number(quant));
+        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"2", "nome":produto, "valor":preco},"quantidade":quant,"valor":valor}]}, json: true};
         request(options);
         request.post("localhost:3000/pedidos");
     });
 
-   Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
-        var bruto: number= (Number(preco)*Number(quant));
-        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"3", "nome":produto, "valor":preco},"quantidade":quant,"valor":bruto}]}, json: true};
+    Given(/^o pedido "(\d*)" cadastrado ao cliente "([^\"]*)" com "(\d*)" unidades de "([^\"]*)" possui um valor bruto de R$ "([^\"]*)"$/, async (code, client, quant, produto,preco) => {
+        var valor: number= (Number(preco)*Number(quant));
+        var options:any = {method: 'POST', uri: ("http://localhost:3000/pedidos"), body:{"cliente": {"nome": client}, "entregue" : true, "pago": true, "lista":[{"produto":{"codigo":"3", "nome":produto, "valor":preco},"quantidade":quant,"valor":valor}]}, json: true};
         request(options);
         request.post("localhost:3000/pedidos");
     });
 
-    Then(/^ Eu verei no campo peso do produto "([^\"]*)" o peso "([^\"]*)" KG $/, async (produto, valor) => {
-        //verificar o campo de peso
+    Then(/^ Eu verei no campo bruto o valor R$ "([^\"]*)" $/, async (valor) => {
+        //verificar o campo de bruto
     });
 
 }) 
